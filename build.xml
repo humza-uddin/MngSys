@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<project default="run">
+	<target name="run" depends="compile">
+		<java classname="management.system.Main">
+			<classpath path="stage" />
+		</java>
+	</target>
+	<target name="compile">
+		<javac includeantruntime="false" srcdir="./src" destdir="stage"/>
+	</target>
+</project>
