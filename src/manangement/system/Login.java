@@ -3,8 +3,13 @@ package manangement.system;
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.border.*;
+import java.awt.event.*;
 
-public class Login extends JFrame{
+public class Login extends JFrame implements ActionListener{
+	
+	JButton login;
+	JButton signup;
+	JTextField tfusername, tfpassword;
 	
 	Login(){
 		setSize(800,600);
@@ -40,7 +45,7 @@ public class Login extends JFrame{
 		lblusername.setFont(new Font("SAN SERIF", Font.PLAIN,14));
 		panel2.add(lblusername);
 		
-		JTextField tfusername = new JTextField();
+		tfusername = new JTextField();
 		tfusername.setBounds(80, 180, 200, 30);
 		tfusername.setBackground(new Color(235, 236, 240));
 		tfusername.setBorder(BorderFactory.createEmptyBorder());
@@ -51,16 +56,17 @@ public class Login extends JFrame{
 		lblpassword.setFont(new Font("SAN SERIF", Font.PLAIN,14));
 		panel2.add(lblpassword);
 		
-		JTextField tfpassword = new JTextField();
+		tfpassword = new JTextField();
 		tfpassword.setBounds(80, 250, 200, 30);
 		tfpassword.setBackground(new Color(235, 236, 240));
 		tfpassword.setBorder(BorderFactory.createEmptyBorder());
 		panel2.add(tfpassword);
 		
-		JButton login = new JButton("Login");
+		login = new JButton("Login");
 		login.setBackground(new Color(62, 162, 255));
 		login.setBorder(BorderFactory.createEmptyBorder());
 		login.setForeground(Color.WHITE);
+		login.addActionListener(this);
 		login.setBounds(80,300,200,30);
 		panel2.add(login);
 		
@@ -76,17 +82,30 @@ public class Login extends JFrame{
 		lblor.setFont(new Font("SAN SERIF", Font.PLAIN,10));
 		lblor.setForeground(new Color(225, 226, 220));
 		panel2.add(lblor);
+
 		
-		JButton signup = new JButton("Sign Up");
+		signup = new JButton("Sign Up");
 		signup.setBackground(new Color(62, 162, 255));
 		signup.setBorder(BorderFactory.createEmptyBorder());
 		signup.setForeground(Color.WHITE);
 		signup.setBounds(80,410,200,30);
+		signup.addActionListener(this);
 		panel2.add(signup);
 		
 
 		setVisible(true);
 	}
+	
+	public void actionPerformed(ActionEvent ae) {
+		if (ae.getSource() == login)
+		{
+			
+		} else if (ae.getSource() == signup) {
+			setVisible(false);
+			new Signup();
+		}
+	}
+	
 	public static void main(String[] args) {
 		Login L = new Login();
 		
