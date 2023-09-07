@@ -3,7 +3,8 @@ package manangement.system;
 import javax.swing.*;
 import java.awt.*;
 
-public class Zoom extends JFrame {
+public class Zoom extends JFrame implements Runnable{
+	Thread thread;
 
 	Zoom(){
 		//Hard coded 
@@ -18,6 +19,17 @@ public class Zoom extends JFrame {
 		
 		
 		setVisible(true);
+		thread = new Thread(this);
+		thread.start();  // multi-threaded function
+	}
+	
+	public void run() {
+		try {
+
+			Thread.sleep(7000);
+			//new Login();
+			setVisible(false);
+		}catch (Exception a) {	}
 	}
 	
 	public static void main(String[] args) {
