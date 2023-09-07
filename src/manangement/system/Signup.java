@@ -3,9 +3,15 @@ package manangement.system;
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.border.*;
+import java.awt.event.*;
 
-public class Signup extends JFrame{
+public class Signup extends JFrame implements ActionListener{
 
+	JButton create;
+	JButton back;
+	JTextField tfusername, tfPassword, tfFirstname, tfLastname, tfEmail;
+
+	
 	Signup(){
 		setSize(800,600);
 		setLocation(300,100);
@@ -41,7 +47,7 @@ public class Signup extends JFrame{
 		lblusername.setFont(new Font("SAN SERIF", Font.PLAIN,14));
 		panel2.add(lblusername);
 		
-		JTextField tfusername = new JTextField();
+		tfusername = new JTextField();
 		tfusername.setBounds(80, 120, 200, 30);
 		tfusername.setBackground(new Color(235, 236, 240));
 		tfusername.setBorder(BorderFactory.createEmptyBorder());
@@ -52,7 +58,7 @@ public class Signup extends JFrame{
 		lblFirstname.setFont(new Font("SAN SERIF", Font.PLAIN,14));
 		panel2.add(lblFirstname);
 		
-		JTextField tfFirstname = new JTextField();
+		tfFirstname = new JTextField();
 		tfFirstname.setBounds(80, 180, 200, 30);
 		tfFirstname.setBackground(new Color(235, 236, 240));
 		tfFirstname.setBorder(BorderFactory.createEmptyBorder());
@@ -63,7 +69,7 @@ public class Signup extends JFrame{
 		lblLastname.setFont(new Font("SAN SERIF", Font.PLAIN,14));
 		panel2.add(lblLastname);
 		
-		JTextField tfLastname = new JTextField();
+		tfLastname = new JTextField();
 		tfLastname.setBounds(80, 240, 200, 30);
 		tfLastname.setBackground(new Color(235, 236, 240));
 		tfLastname.setBorder(BorderFactory.createEmptyBorder());
@@ -73,8 +79,8 @@ public class Signup extends JFrame{
 		lblEmail.setBounds(80, 270, 200, 30);
 		lblEmail.setFont(new Font("SAN SERIF", Font.PLAIN,14));
 		panel2.add(lblEmail);
-		
-		JTextField tfEmail = new JTextField();
+
+		tfEmail = new JTextField();
 		tfEmail.setBounds(80, 300, 200, 30);
 		tfEmail.setBackground(new Color(235, 236, 240));
 		tfEmail.setBorder(BorderFactory.createEmptyBorder());
@@ -85,28 +91,58 @@ public class Signup extends JFrame{
 		lblPassword.setFont(new Font("SAN SERIF", Font.PLAIN,14));
 		panel2.add(lblPassword);
 		
-		JTextField tfPassword = new JTextField();
+		tfPassword = new JTextField();
 		tfPassword.setBounds(80, 360, 200, 30);
 		tfPassword.setBackground(new Color(235, 236, 240));
 		tfPassword.setBorder(BorderFactory.createEmptyBorder());
 		panel2.add(tfPassword);
 		
-		JButton create = new JButton("Create");
+		create = new JButton("Create");
 		create.setBackground(new Color(62, 162, 255));
 		create.setBorder(BorderFactory.createEmptyBorder());
 		create.setForeground(Color.WHITE);
 		create.setBounds(80,410,200,30);
+		create.addActionListener(this);
 		panel2.add(create);
 		
-		JButton back = new JButton("Back");
+		back = new JButton("Back");
 		back.setBackground(new Color(62, 162, 255));
 		back.setBorder(BorderFactory.createEmptyBorder());
 		back.setForeground(Color.WHITE);
 		back.setBounds(80,460,200,30);
+		back.addActionListener(this);
 		panel2.add(back);
 		
 		
 		setVisible(true);
+	}
+	
+	public void actionPerformed(ActionEvent ae) {
+		if( ae.getSource() == create) {
+			
+			String username = tfusername.getText();
+			String firstname = tfFirstname.getText();
+			String lastname = tfLastname.getText();
+			String email = tfEmail.getText();
+			String password = tfPassword.getText();
+		
+			String query = "insert into account values('"+username+"','"+firstname+"','"+lastname+"', '"+email+"', '"+password+"' )";
+			try {
+				Jdconn c = new Jdconn();
+				//Executing the mySql query
+				c.s.executeUpdate(query);
+				
+				JOptionPane.showMessageDialog(null, "Account Created Successfully");
+				
+				setVisible(false);
+				new Login();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else if (ae.getSource() == back) {
+			setVisible(false);
+			new Login();
+		}
 	}
 	
 	public static void main(String[] args) {
