@@ -4,12 +4,13 @@ import javax.swing.*;
 import java.awt.*;
 import javax.swing.border.*;
 import java.awt.event.*;
+import java.sql.*;
 
 public class Login extends JFrame implements ActionListener{
 	
 	JButton login;
-	JButton signup;
-	JTextField tfusername, tfpassword;
+	JButton signup,forget;
+	JTextField tfusername, tfPassword;
 	
 	Login(){
 		setSize(800,600);
@@ -56,11 +57,11 @@ public class Login extends JFrame implements ActionListener{
 		lblpassword.setFont(new Font("SAN SERIF", Font.PLAIN,14));
 		panel2.add(lblpassword);
 		
-		tfpassword = new JTextField();
-		tfpassword.setBounds(80, 250, 200, 30);
-		tfpassword.setBackground(new Color(235, 236, 240));
-		tfpassword.setBorder(BorderFactory.createEmptyBorder());
-		panel2.add(tfpassword);
+		tfPassword = new JTextField();
+		tfPassword.setBounds(80, 250, 200, 30);
+		tfPassword.setBackground(new Color(235, 236, 240));
+		tfPassword.setBorder(BorderFactory.createEmptyBorder());
+		panel2.add(tfPassword);
 		
 		login = new JButton("Login");
 		login.setBackground(new Color(62, 162, 255));
@@ -70,11 +71,12 @@ public class Login extends JFrame implements ActionListener{
 		login.setBounds(80,300,200,30);
 		panel2.add(login);
 		
-		JButton forget = new JButton("Forget Password?");
+		forget = new JButton("Forget Password?");
 		forget.setBackground(new Color(255, 255, 255));
 		forget.setBorder(BorderFactory.createEmptyBorder());
 		forget.setForeground(new Color(205, 206, 200));
 		forget.setBounds(80,340,200,30);
+		forget.addActionListener(this);
 		panel2.add(forget);
 		
 		JLabel lblor = new JLabel("_______________ or _______________");
@@ -99,8 +101,27 @@ public class Login extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent ae) {
 		if (ae.getSource() == login)
 		{
-			
-		} else if (ae.getSource() == signup) {
+			try {
+				String username = tfusername.getText();
+				String password = tfPassword.getText();
+				
+				String query = "select * from account where username = '"+username+"' AND password = '"+password+"'";
+				Jdconn c = new Jdconn();
+				ResultSet rs = c.s.executeQuery(query);
+				if(rs.next()) {
+					setVisible(false);
+					new Loading(username);
+				}else {
+					JOptionPane.showMessageDialog(null, "Incorrect username and password");
+				}
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else if(ae.getSource()== forget) {
+			setVisible(false);
+			new passforget();
+		}
+		else if(ae.getSource() == signup) {
 			setVisible(false);
 			new Signup();
 		}
