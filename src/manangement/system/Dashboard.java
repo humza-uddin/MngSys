@@ -13,7 +13,7 @@ public class Dashboard extends JFrame{
 		
 		JPanel panel1 = new JPanel();
 		panel1.setLayout(null);
-		panel1.setBackground(new Color (40, 44, 47));
+		panel1.setBackground(new Color (27, 29, 33));
 		panel1.setBounds(0,0,1385,65);
 		add(panel1);
 		
@@ -32,7 +32,7 @@ public class Dashboard extends JFrame{
 		
 		JPanel panel2 = new JPanel();
 		panel2.setLayout(null);
-		panel2.setBackground(new Color (40, 44, 47));
+		panel2.setBackground(new Color (27, 29, 33));// (35,37,41);
 		panel2.setBounds(0,65,300,760);
 		add(panel2);
 		
